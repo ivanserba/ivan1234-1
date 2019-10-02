@@ -1,0 +1,104 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int main()
+{int f1;float h;
+ char f[20],r;float u,n;int hg,i1,i2,i3;
+  typedef struct Node
+{
+char rty[20];
+struct Node *left;
+struct Node *right;
+struct Node *past;
+float count;
+    } word;  
+word*abc; 
+word *p,*p2,*p3,*tmp;
+abc=(word*)malloc(sizeof(word));
+abc->past=NULL;
+abc->left=NULL;
+abc->right=NULL;
+abc->count=3;
+strncpy(abc->rty,"11",20);    
+strncpy(f,"",10);  
+beginning:;
+printf("1-ввод двоичного  2-ввод десятичного  3-вывод всего:\n");
+scanf("%d",&f1);
+if(f1==3){
+p=abc;
+while(1){
+start:;
+if(p->right==NULL && p->left!=NULL){
+tmp = (word*)malloc(sizeof(word));    
+strncpy (tmp->rty,"",15);
+tmp->past=p;
+p->right=tmp;    
+};
+while(p->left!=NULL)
+p=p->left;    
+while(1){
+printf("Двоичное: %s               Десятичное:%f\n",p->rty,p->count);    
+while(p->right==NULL){
+p=p->past;if(p==NULL)goto end;    
+printf("Двоичное: %s               Десятичное:%f\n",p->rty,p->count);};   
+p=p->right;    
+if(strcmp("",p->rty)==0){
+p=p->past;
+p->right=NULL;
+h=p->count;
+while(h==p->count || h>p->count){    
+p=p->past;if(p==NULL)goto end;};   
+}else{
+while(p->left==NULL && p->right!=NULL){
+printf("Двоичное: %s               Десятичное:%f\n",p->rty,p->count);    
+ p=p->right;};
+if(p->left!=NULL)goto start;
+if(p->right==NULL && p->left==NULL){
+printf("Двоичное: %s               Десятичное:%f\n",p->rty,p->count);    
+h=p->count;
+while(h==p->count || h>p->count){    
+p=p->past;if(p==NULL)goto end;};};
+};};
+};end:;};
+if(f1==1){
+printf("Введите число:\n");scanf("%s",&f);hg=0;h=0;
+while(f[hg]!='\0' && f[hg]!='.'){u=f[hg]-'0';
+h=h*2+u;hg++;}; 
+u=2;hg++;
+while(f[hg]!='\0'){n=f[hg]-'0';
+;h=h+(n/u);hg++;u=u*2;    
+};  
+looking:;
+p=abc;
+p2=p;
+while(1){
+if(h>p->count){p2=p;p=p->right;}else{    
+if(h<p->count){p2=p;p=p->left;}else{
+if(h==p->count){printf("Элемент уже существует!\n");goto beginning;};};};
+if(p==NULL){
+tmp = (word*)malloc(sizeof(word));     
+tmp->count=h;
+if(h>p2->count)p2->right=tmp;
+if(h<p2->count)p2->left=tmp;
+tmp->past=p2;
+tmp->right=NULL;
+tmp->left=NULL;    
+if(f1==1)strncpy (tmp->rty,f,15);else{
+hg=h;i1=0;f[i1]=hg%2+'0';hg=(hg-hg%2)/2;i1++;
+while(hg!=0){f[i1]=hg%2+'0';hg=(hg-hg%2)/2;i1++;};i1--;
+for(i2=0;i2<(i1+1)/2;i2++){hg=f[i2];f[i2]=f[i1-i2];f[i1-i2]=hg;};    
+hg=h;h=h-hg;    
+if(h!=0){f[++i1]='.';
+if(18-i1>8)i2=8;else i2=18-i1;    
+for(int i3=0;i3<i2;i3++)h=h*2;    
+hg=h;
+for(i3=i1+i2;i3>i1;i3--){    
+f[i3]=hg%2+'0';hg=(hg-hg%2)/2;
+};f[++i1+i2]='\0';};
+strncpy(tmp->rty,f,15); };
+goto beginning;;};};};
+if(f1==2){
+printf("Введите число:\n");scanf("%f",&h);
+goto looking;
+};
+   goto beginning;}
