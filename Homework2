@@ -1,0 +1,165 @@
+#include <stdio.h>
+int main()
+{
+typedef struct er{
+int name;   
+int way;
+struct er*past;
+struct er*next;
+int qw[15];
+int we[15];
+int ty[15];
+}point;
+int z,y,c,x,i=0,i2,i3,i4,i5,i1,min=999999,num[30];
+char fgh[20];
+struct er*a=(point*)malloc(sizeof(point));
+FILE*f1;
+printf("Введите имя файла:\n");
+scanf("%s",fgh);
+printf("Введите начальный/коненый пункты:\n");
+scanf("%d",&z);
+scanf("%d",&y);
+f1=fopen(fgh,"r+");
+while(!feof(f1)){
+fscanf(f1,"%d",&c);
+a->qw[i]=c;
+fscanf(f1,"%d",&c);
+a->we[i]=c;
+fscanf(f1,"%d",&c);
+a->ty[i]=c;
+ i++;
+};
+a->name=z;
+a->way=0;
+a->qw[i]=0;
+a->we[i]=0;
+struct er*p=a;
+struct er*p1;
+while(1>0){
+    i=0;
+qwert1:;
+  if(p->name==y){
+    if(p->way<min)min=p->way;   
+qwert2:;
+    while(1>0){
+x=p->name;
+p=p->past;
+      if(p==NULL)goto end;
+i=0;
+      while((p->next+i)->name!=x)
+i++;
+i++;    
+      if((p->next+i)->past!=NULL){
+    p=(p->next+i);goto qwert1;
+    
+      };
+    };
+  };
+x=p->name;
+i2=0;i3=0;
+  while(p->qw[i2]!=0){
+    if(p->qw[i2]==x){
+num[i3++]=i2;
+num[i3++]=p->we[i2];
+num[i3++]=p->ty[i2]; 
+    }else {
+	   if(p->we[i2]==x){
+num[i3++]=i2; 
+num[i3++]=p->qw[i2]; 
+num[i3++]=p->ty[i2];
+       };
+	};
+	i2++;   
+  };
+num[i3]=0;
+  if(i3==0)goto qwert2;
+i3=i3/3;
+p->next=(point*)malloc(sizeof(point)*(i3+1));    
+i4=0;
+  for(i=0;i<i3;i++){
+p1=(p->next+i);    
+p1->past=p;
+    for(i5=0;i5<num[i4];i5++){
+p1->we[i5]=p->we[i5];
+p1->ty[i5]=p->ty[i5];
+p1->qw[i5]=p->qw[i5];};
+i5++;
+    while(p->we[i5]!=0){
+p1->we[i5-1]=p->we[i5];
+p1->ty[i5-1]=p->ty[i5];
+p1->qw[i5-1]=p->qw[i5];
+i5++;
+    };
+p1->qw[i5-1]=0;
+p1->we[i5-1]=0;
+i4++;
+p1->name=num[i4++];
+p1->way=p->way+num[i4++];    
+  };
+p=p->next;    
+};
+fclose(f1);   
+end:;    
+p=a;
+if(min==999999)printf("Маршрут невозможен!");
+else
+{
+  for(;;){
+ qwert4:;
+    while(p->next!=NULL)p=p->next;    
+    if(p->name==y && p->way==min){
+printf("Идеальный маршрут:\n");
+      while(p!=NULL){
+printf("%d  ",p->name);
+p=p->past;
+};
+printf("\nДлина: %d",min);
+goto qwert3;
+    };    
+     while(1>0){
+x=p->name;
+p=p->past;
+      if(p==NULL)goto qwert3;
+i=0;
+      while((p->next+i)->name!=x)i++;
+i++;    
+      if((p->next+i)->past!=NULL){
+p=(p->next+i);
+goto qwert4;
+      };
+    }; 
+  };
+qwert3:;    
+};
+}
+
+///////////////Это числа для испытания программы
+1 2 5
+1 3 13
+4 3 6 
+2 5 1
+5 4 3
+5 3 46
+2 4 67
+5 1 98
+2 3 1
+6 7 89 
+
+
+
+
+
+1 2 5
+1 3 13
+4 3 6 
+2 5 1
+5 4 3
+2 3 1
+7 3 9
+7 5 9
+7 4 7
+6 5 3 
+6 1 12
+6 3 13
+6 4 9
+////////////////////
